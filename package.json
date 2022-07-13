@@ -36,6 +36,7 @@
     "react-number-format": "^4.9.3",
     "react-player": "^2.10.1",
     "react-query": "^3.34.16",
+    "react-tooltip": "^4.2.21",
     "styled-components": "^5.3.5",
     "yup": "^0.32.11"
   },
