@@ -538,7 +538,35 @@ export default function Header({ none = false }) {
                 </Flex>
               </Flex>
               <Flex flexDir="column" h="98%" justify="space-between" pb="4">
-                <Flex />
+                {user && user.role === "67g" ? (
+                  <Flex mt="4">
+                    <Text
+                      onClick={() => router.push("/management/dashboard")}
+                      cursor="pointer"
+                      _hover={{
+                        textDecorationLine: "underline",
+                      }}
+                      color="#333"
+                      fontSize="20"
+                    >
+                      Management
+                    </Text>
+                  </Flex>
+                ) : (
+                  <Flex>
+                    <Text
+                      onClick={() => router.push("/management/dashboard")}
+                      cursor="pointer"
+                      _hover={{
+                        textDecorationLine: "underline",
+                      }}
+                      color="#333"
+                      fontSize="20"
+                    >
+                      Management
+                    </Text>
+                  </Flex>
+                )}
                 <Flex flexDir="column" borderTop="1px solid #f0f0f0">
                   {user ? (
                     <Flex w="100%" justify="space-between">
