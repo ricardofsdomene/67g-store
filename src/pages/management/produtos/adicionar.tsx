@@ -311,7 +311,7 @@ export default function Admin() {
     return (
       <Flex
         style={{
-          paddingLeft: 300,
+          paddingLeft: size.width > 800 && 300,
           backgroundColor: "#ddd",
           width: "100%",
           height: "100%",
