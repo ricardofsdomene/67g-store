@@ -1,6 +1,8 @@
 import {
   Avatar,
   Flex,
+  Icon,
+  Input,
   Menu,
   MenuButton,
   MenuList,
@@ -9,8 +11,9 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../../contexts/ContextProvider";
-import { useWindowSize } from "../../utils/useWindowSize";
+import { FiArrowLeft } from "react-icons/fi";
+import { Context } from "../../../contexts/ContextProvider";
+import { useWindowSize } from "../../../utils/useWindowSize";
 
 export default function Admin() {
   const { user } = useContext(Context);
@@ -19,6 +22,8 @@ export default function Admin() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
+
+  const [desc, setDesc] = useState(undefined);
 
   useEffect(() => {
     if (user) {
@@ -67,8 +72,8 @@ export default function Admin() {
               onClick={() => router.push(`/management/${route.toLowerCase()}`)}
               cursor="pointer"
               bg={
-                router.pathname === `/management/${route.toLowerCase()}` &&
-                "#d0d0d0"
+                router.pathname ===
+                  `/management/${route.toLowerCase()}/adicionar` && "#d0d0d0"
               }
               borderRadius="5"
               py="2"
@@ -84,7 +89,7 @@ export default function Admin() {
         return (
           <Flex mt="4">
             <Item route="Dashboard" />
-            <Item route="Pedidos" />
+            <Item route="Produtos" />
             <Item route="Clientes" />
           </Flex>
         );
@@ -101,9 +106,16 @@ export default function Admin() {
           p="4"
         >
           <Flex w="100%" justify="space-between">
-            <Text color="#333" fontSize="22">
-              67g store
-            </Text>
+            <Flex
+              cursor="pointer"
+              onClick={() => router.push("/management/dashboard")}
+              align="center"
+            >
+              <Icon mr="2" as={FiArrowLeft} color="#333" fontSize="18" />
+              <Text color="#333" fontSize="22">
+                Dashboard
+              </Text>
+            </Flex>
             <Menu>
               <MenuButton>
                 <Avatar cursor="pointer" name="Ricardo Domene" size="sm" />
@@ -152,11 +164,34 @@ export default function Admin() {
         flexDir="column"
       >
         <Header />
-        <Flex p="4">
-          <Text color="#333" fontSize="20">
-            ...
-          </Text>
+        <Flex p="4" flexDir="column" w={size.width < 1000 ? "100%" : "60%"}>
+          <Flex bg="#FFF" borderRadius="5" p="4" flexDir="column">
+            <Text color="#333" fontSize="16">
+              Titulo
+            </Text>
+            <Input mt="2" placeholder="camiseta manga loja" w="100%" />
+            <Text mt="4" color="#333" fontSize="16">
+              Descrição
+            </Text>
+            <textarea
+              value={desc}
+              onChange={(ev: React.ChangeEvent<HTMLTextAreaElement>): void =>
+                setDesc(ev.target.value)
+              }
+              name="description"
+              style={{
+                padding: 10,
+                color: "#333",
+                width: "100%",
+                borderRadius: 5,
+                border: "1px solid #e0e0e0",
+              }}
+              cols={size.width < 500 ? 4 : size.width < 600 ? 7 : 9}
+              rows={size.width < 500 ? 4 : size.width < 600 ? 7 : 9}
+            ></textarea>
+          </Flex>
         </Flex>
+        {size.width > 1000 && <Flex w="40%" />}
       </Flex>
     );
   }

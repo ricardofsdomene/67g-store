@@ -10,10 +10,10 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import { BiAddToQueue, BiChevronDown, BiFlag } from "react-icons/bi";
+import { BiAddToQueue, BiChevronDown, BiFlag, BiStore } from "react-icons/bi";
 import { MdAdd, MdLibraryAdd, MdOutlineAddBox } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft, FiTag } from "react-icons/fi";
 import { Context } from "../../contexts/ContextProvider";
 import { useWindowSize } from "../../utils/useWindowSize";
 
@@ -193,9 +193,14 @@ export default function Admin() {
     }
 
     function Actions() {
-      function Action({ title, subtitle, emoji }) {
+      function Action({ title, subtitle, emoji, color }) {
         return (
           <Flex
+            onClick={() => {
+              if (title === "Adicionar produto") {
+                router.push("/management/produtos/adicionar");
+              }
+            }}
             cursor="pointer"
             style={{
               width: "100%",
@@ -217,7 +222,7 @@ export default function Admin() {
               borderRadius="5"
               p="4"
             >
-              <Icon as={emoji} fontSize="20" color="green" />
+              <Icon as={emoji} fontSize="20" color={color} />
             </Flex>
             <Flex flexDir="column" ml="4">
               <Text color="#333" fontWeight="bold" fontSize="18">
@@ -233,7 +238,7 @@ export default function Admin() {
         <Flex w="100%" justify="space-between">
           <Flex mt="2" flexDir="column" w={size.width > 1000 ? "50%" : "100%"}>
             <Text color="#333" fontSize="16" fontWeight="bold">
-              Começar a vender
+              Inicie sua loja
             </Text>
             <Flex
               flexDir="column"
@@ -245,21 +250,92 @@ export default function Admin() {
               mt="4"
             >
               <Action
+                color="#3c4ea4"
+                title="Estilizar sua loja"
+                subtitle="Deixe a sua loja com a sua cara"
+                emoji={BiStore}
+              />
+              <Flex
+                w="100%"
+                style={{
+                  height: 1,
+                }}
+                bg="#e5e5e5"
+              />
+              <Action
+                color="#cc6946"
                 title="Adicionar produto"
                 subtitle="Comece a vender hoje mesmo"
-                emoji={MdAdd}
+                emoji={FiTag}
               />
-              <Flex w="100%" style={{
-                height: 1
-              }} bg="#e5e5e5" />
+              <Flex
+                w="100%"
+                style={{
+                  height: 1,
+                }}
+                bg="#e5e5e5"
+              />
               <Action
+                color="green"
                 title="Adicionar pedido"
                 subtitle="Comece a organizar seus pedidos"
                 emoji={MdAdd}
               />
             </Flex>
           </Flex>
-          {size.width > 1000 && <Flex w="50%"></Flex>}
+          {size.width > 1000 && (
+            <Flex
+              mt="2"
+              flexDir="column"
+              w={size.width > 1000 ? "49%" : "100%"}
+            >
+              {/* <Text color="#333" fontSize="16" fontWeight="bold">
+                Algumas dicas para a sua loja online
+              </Text>
+              <Flex
+                flexDir="column"
+                borderRadius="5"
+                bg="#FFF"
+                p="0.5"
+                border="1px solid #bbb"
+                w="100%"
+                mt="4"
+              >
+                <Action
+                  color="#3c4ea4"
+                  title="Como captar clientes"
+                  subtitle="Deixe a sua loja com a sua cara"
+                  emoji={BiStore}
+                />
+                <Flex
+                  w="100%"
+                  style={{
+                    height: 1,
+                  }}
+                  bg="#e5e5e5"
+                />
+                <Action
+                  color="#cc6946"
+                  title="Adicionar produto"
+                  subtitle="Comece a vender hoje mesmo"
+                  emoji={FiTag}
+                />
+                <Flex
+                  w="100%"
+                  style={{
+                    height: 1,
+                  }}
+                  bg="#e5e5e5"
+                />
+                <Action
+                  color="green"
+                  title="Adicionar pedido"
+                  subtitle="Comece a organizar seus pedidos"
+                  emoji={MdAdd}
+                />
+              </Flex> */}
+            </Flex>
+          )}
         </Flex>
       );
     }
